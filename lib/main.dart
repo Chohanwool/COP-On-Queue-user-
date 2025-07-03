@@ -36,8 +36,8 @@ class MyApp extends StatelessWidget {
           bodyMedium: GoogleFonts.lato(fontSize: 16, color: Colors.black87),
         ),
       ),
-      //home: const LoginScreen(),
-      home: const QueueDashboardScreen(),
+      home: const LoginScreen(),
+      //home: const QueueDashboardScreen(),
     );
   }
 }

@@ -23,8 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     _formKey.currentState!.save();
 
-    // For now, just navigate to the dashboard screen on successful login
-    // In a real app, you would perform authentication here
+    // 임시로 로그인 항상 성공ㅁㄴ
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (ctx) => const QueueDashboardScreen()),
     );
@@ -35,69 +34,69 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'OnQueue Login',
+          'On Queue',
           style: GoogleFonts.lato(fontWeight: FontWeight.bold),
         ),
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Welcome Back!',
-                    style: GoogleFonts.lato(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 100, 16, 0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Login',
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.email),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    autocorrect: false,
-                    textCapitalization: TextCapitalization.none,
-                    validator: (value) {
-                      if (value == null ||
-                          value.trim().isEmpty ||
-                          !value.contains('@')) {
-                        return 'Please enter a valid email address.';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      _enteredEmail = value!;
-                    },
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'ID',
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.perm_identity_outlined),
                   ),
-                  const SizedBox(height: 12),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Password',
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.lock),
-                    ),
-                    obscureText: true,
-                    validator: (value) {
-                      if (value == null || value.trim().length < 6) {
-                        return 'Password must be at least 6 characters long.';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      _enteredPassword = value!;
-                    },
+                  keyboardType: TextInputType.text,
+                  autocorrect: false,
+                  textCapitalization: TextCapitalization.none,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Please enter Id.';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _enteredEmail = value!;
+                  },
+                ),
+                const SizedBox(height: 12),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'Password',
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.lock),
                   ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.trim().length < 6) {
+                      return 'Password must be at least 6 characters long.';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _enteredPassword = value!;
+                  },
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
                     onPressed: _submit,
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
@@ -105,15 +104,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         vertical: 15,
                       ),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(7),
                       ),
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       foregroundColor: Theme.of(context).colorScheme.onPrimary,
                     ),
                     child: Text('Login', style: GoogleFonts.lato(fontSize: 16)),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
