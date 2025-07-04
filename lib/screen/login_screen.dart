@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.perm_identity_outlined),
                   ),
-                  keyboardType: TextInputType.text,
+                  obscureText: true,
                   autocorrect: false,
                   textCapitalization: TextCapitalization.none,
                   validator: (value) {

@@ -78,59 +78,16 @@ class _QueueDashboardScreenState extends State<QueueDashboardScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      height: 150,
-                      width: 200,
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: theme.colorScheme.primaryContainer,
-                      ),
-                      child: Column(
-                        //mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Queue', style: theme.textTheme.titleMedium),
-                          const SizedBox(height: 8),
-                          Expanded(
-                            child: Center(
-                              child: Text(
-                                '9',
-                                style: theme.textTheme.titleMedium!.copyWith(
-                                  fontSize: 38,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    _buildFeatureCard(context, title: 'Queue', content: '10'),
+                    const SizedBox(width: 16),
                     InkWell(
-                      onTap: () {
-                        _pushRegisterScreen();
-                      },
-                      child: Container(
-                        height: 150,
-                        width: 200,
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          color: theme.colorScheme.primaryContainer,
-                        ),
-                        child: Column(
-                          //mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Register',
-                              style: theme.textTheme.titleMedium,
-                            ),
-                            const SizedBox(height: 8),
-                            Expanded(
-                              child: Center(child: Icon(Icons.add, size: 30)),
-                            ),
-                          ],
-                        ),
+                      onTap: _pushRegisterScreen,
+                      child: _buildFeatureCard(
+                        context,
+                        title: 'Register',
+                        icon: Icons.add,
                       ),
                     ),
                   ],
@@ -138,7 +95,6 @@ class _QueueDashboardScreenState extends State<QueueDashboardScreen> {
               ),
             ),
 
-            // Feature Card
             const SizedBox(height: 28),
             Expanded(
               child: Container(
@@ -183,6 +139,54 @@ class _QueueDashboardScreenState extends State<QueueDashboardScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildFeatureCard(
+    BuildContext context, {
+    required String title,
+    String? content,
+    IconData? icon,
+  }) {
+    final theme = Theme.of(context);
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    double cardWidth;
+
+    if (screenWidth > 600) {
+      // 태블릿 기준 (예: 너비 600 이상이면 태블릿)
+      cardWidth = 300;
+    } else {
+      // 모바일 기준
+      cardWidth = 160;
+    }
+
+    return Container(
+      height: 150,
+      width: cardWidth,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: theme.colorScheme.primaryContainer,
+      ),
+      child: Column(
+        children: [
+          Text(title, style: theme.textTheme.titleMedium),
+          const SizedBox(height: 8),
+          Expanded(
+            child: Center(
+              child: content != null
+                  ? Text(
+                      content,
+                      style: theme.textTheme.titleMedium!.copyWith(
+                        fontSize: 38,
+                      ),
+                    )
+                  : Icon(icon, size: 30),
+            ),
+          ),
+        ],
       ),
     );
   }
