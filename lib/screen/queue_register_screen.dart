@@ -48,13 +48,12 @@ class _QueueRegisterScreenState extends State<QueueRegisterScreen> {
                 const SizedBox(height: 24),
                 TextFormField(
                   controller: lastNameController,
-                  decoration: const InputDecoration(
-                    labelText: "Last Name",
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFFE8F0F2)),
-                    ),
-                    // filled: true,
-                    // fillColor: Color(0xFFE8F0F2),
+                  decoration: InputDecoration(
+                    hintText: "Last Name",
+                    hintStyle: TextStyle(color: Color(0xFF085a8a)),
+                    border: OutlineInputBorder(borderSide: BorderSide.none),
+                    filled: true,
+                    fillColor: Color(0xFFE8F0F2),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -67,12 +66,11 @@ class _QueueRegisterScreenState extends State<QueueRegisterScreen> {
                 TextFormField(
                   controller: sirNameController,
                   decoration: const InputDecoration(
-                    labelText: "Sir Name",
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFFE8F0F2)),
-                    ),
-                    // filled: true,
-                    // fillColor: Color(0xFFE8F0F2),
+                    hintText: "Sir Name",
+                    hintStyle: TextStyle(color: Color(0xFF085a8a)),
+                    border: OutlineInputBorder(borderSide: BorderSide.none),
+                    filled: true,
+                    fillColor: Color(0xFFE8F0F2),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -85,12 +83,11 @@ class _QueueRegisterScreenState extends State<QueueRegisterScreen> {
                 TextFormField(
                   controller: phoneController,
                   decoration: const InputDecoration(
-                    hintText: 'Phone',
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFFE8F0F2)),
-                    ),
-                    // filled: true,
-                    // fillColor: Color(0xFFE8F0F2),
+                    hintText: "Phone",
+                    hintStyle: TextStyle(color: Color(0xFF085a8a)),
+                    border: OutlineInputBorder(borderSide: BorderSide.none),
+                    filled: true,
+                    fillColor: Color(0xFFE8F0F2),
                   ),
                   keyboardType: TextInputType.phone,
                   validator: (value) {
@@ -104,12 +101,11 @@ class _QueueRegisterScreenState extends State<QueueRegisterScreen> {
                 DropdownButtonFormField<int>(
                   value: _selectedPartySize,
                   decoration: const InputDecoration(
-                    labelText: 'Party Size',
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFFE8F0F2)),
-                    ),
-                    // filled: true,
-                    // fillColor: Color(0xFFE8F0F2),
+                    labelText: "Party Size",
+                    labelStyle: TextStyle(color: Color(0xFF085a8a)),
+                    border: OutlineInputBorder(borderSide: BorderSide.none),
+                    filled: true,
+                    fillColor: Color(0xFFE8F0F2),
                   ),
                   items: List.generate(10, (index) => index + 1)
                       .map(
