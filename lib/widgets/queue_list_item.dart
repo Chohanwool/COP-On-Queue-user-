@@ -17,8 +17,8 @@ class QueueListItem extends StatelessWidget {
           backgroundColor: Colors.grey.shade200,
           child: Text(queueEntity.id),
         ),
-        title: Text(queueEntity.maskedFullName),
-        subtitle: Text(queueEntity.maskedPhone),
+        title: Text(queueEntity.maskedPhone),
+        subtitle: Text(queueEntity.maskedFullName),
         trailing: Column(mainAxisAlignment: MainAxisAlignment.center),
       ),
     );
