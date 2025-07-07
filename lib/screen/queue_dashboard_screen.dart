@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:on_queue/data/dummy_data.dart';
 import 'package:on_queue/models/queue_entity.dart';
+import 'package:on_queue/screen/queue_confirm_register_screen.dart';
 import 'package:on_queue/screen/queue_register_screen.dart';
 import 'package:on_queue/widgets/queue_list_item.dart';
 
@@ -18,10 +19,11 @@ class _QueueDashboardScreenState extends State<QueueDashboardScreen> {
   void _pushRegisterScreen() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => QueueRegisterScreen(
-          appBarTitle: 'Register Queue',
-          onRegister: _addQueueData,
-        ),
+        // builder: (context) => QueueRegisterScreen(
+        //   appBarTitle: 'Register Queue',
+        //   onRegister: _addQueueData,
+        // ),
+        builder: (context) => const QueueConfirmRegisterScreen(),
       ),
     );
   }
@@ -54,91 +56,86 @@ class _QueueDashboardScreenState extends State<QueueDashboardScreen> {
         leading: const Icon(Icons.access_time),
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            const SizedBox(height: 32),
-            Text(
-              'Welcome',
-              style: theme.textTheme.titleLarge!.copyWith(
-                fontSize: 44,
-                fontWeight: FontWeight.bold,
-              ),
+      body: Column(
+        children: [
+          const SizedBox(height: 32),
+          Text(
+            'Welcome',
+            style: theme.textTheme.titleLarge!.copyWith(
+              fontSize: 44,
+              fontWeight: FontWeight.bold,
             ),
-            const SizedBox(height: 16),
-            Text(
-              'Tap below to register your queue!',
-              style: theme.textTheme.titleMedium!.copyWith(fontSize: 24),
-            ),
-            const SizedBox(height: 24),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Tap below to register your queue!',
+            style: theme.textTheme.titleMedium!.copyWith(fontSize: 24),
+          ),
+          const SizedBox(height: 24),
 
-            // Feature Card
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 850),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildFeatureCard(context, title: 'Queue', content: '10'),
-                    const SizedBox(width: 16),
-                    InkWell(
-                      onTap: _pushRegisterScreen,
-                      child: _buildFeatureCard(
-                        context,
-                        title: 'Register',
-                        icon: Icons.add,
-                      ),
+          // Feature Card
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 850),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildFeatureCard(context, title: 'Queue', content: '10'),
+                  const SizedBox(width: 16),
+                  InkWell(
+                    onTap: _pushRegisterScreen,
+                    child: _buildFeatureCard(
+                      context,
+                      title: 'Register',
+                      icon: Icons.add,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
+          ),
 
-            const SizedBox(height: 28),
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 46),
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Queue List',
-                          style: theme.textTheme.titleLarge!.copyWith(
-                            fontSize: 30,
-                          ),
+          const SizedBox(height: 28),
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 46),
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Queue List',
+                        style: theme.textTheme.titleLarge!.copyWith(
+                          fontSize: 30,
                         ),
-                        Row(
-                          children: [
-                            Icon(Icons.calendar_today),
-                            const SizedBox(width: 4),
-                            Text(
-                              '2025-06-10',
-                              style: theme.textTheme.bodyMedium,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Expanded(
-                      child: ListView.separated(
-                        itemCount: _queueList.length,
-                        itemBuilder: (context, index) =>
-                            QueueListItem(queueEntity: _queueList[index]),
-                        separatorBuilder: (context, index) =>
-                            const SizedBox(height: 8),
                       ),
+                      Row(
+                        children: [
+                          Icon(Icons.calendar_today),
+                          const SizedBox(width: 4),
+                          Text('2025-06-10', style: theme.textTheme.bodyMedium),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Expanded(
+                    child: ListView.separated(
+                      itemCount: _queueList.length,
+                      itemBuilder: (context, index) =>
+                          QueueListItem(queueEntity: _queueList[index]),
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 8),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
