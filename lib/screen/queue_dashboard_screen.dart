@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:on_queue/data/dummy_data.dart';
 import 'package:on_queue/models/queue_entity.dart';
-import 'package:on_queue/screen/queue_confirm_register_screen.dart';
 import 'package:on_queue/screen/queue_register_screen.dart';
 import 'package:on_queue/widgets/queue_list_item.dart';
 
@@ -19,11 +18,11 @@ class _QueueDashboardScreenState extends State<QueueDashboardScreen> {
   void _pushRegisterScreen() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        // builder: (context) => QueueRegisterScreen(
-        //   appBarTitle: 'Register Queue',
-        //   onRegister: _addQueueData,
-        // ),
-        builder: (context) => const QueueConfirmRegisterScreen(),
+        builder: (context) => QueueRegisterScreen(
+          appBarTitle: 'Register Queue',
+          queueSize: _queueList.length + 1,
+          onRegister: _addQueueData,
+        ),
       ),
     );
   }
@@ -49,6 +48,11 @@ class _QueueDashboardScreenState extends State<QueueDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
+    // 👉 오늘 날짜 가져오기
+    final today = DateTime.now();
+    final formattedDate =
+        "${today.year}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}";
 
     return Scaffold(
       appBar: AppBar(
@@ -81,7 +85,11 @@ class _QueueDashboardScreenState extends State<QueueDashboardScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildFeatureCard(context, title: 'Queue', content: '10'),
+                  _buildFeatureCard(
+                    context,
+                    title: 'Queue',
+                    content: _queueList.length.toString(),
+                  ),
                   const SizedBox(width: 16),
                   InkWell(
                     onTap: _pushRegisterScreen,
@@ -116,7 +124,10 @@ class _QueueDashboardScreenState extends State<QueueDashboardScreen> {
                         children: [
                           Icon(Icons.calendar_today),
                           const SizedBox(width: 4),
-                          Text('2025-06-10', style: theme.textTheme.bodyMedium),
+                          Text(
+                            formattedDate,
+                            style: theme.textTheme.bodyMedium,
+                          ),
                         ],
                       ),
                     ],

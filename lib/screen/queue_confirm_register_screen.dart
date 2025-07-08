@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:on_queue/models/queue_entity.dart';
+import 'package:on_queue/screen/queue_dashboard_screen.dart';
 
 class QueueConfirmRegisterScreen extends StatelessWidget {
-  const QueueConfirmRegisterScreen({super.key});
+  const QueueConfirmRegisterScreen({
+    super.key,
+    required this.queueEntity,
+    required this.queueSize,
+    required this.onConfirmRegister,
+  });
+
+  final QueueEntity queueEntity;
+  final int queueSize;
+  final Function(QueueEntity queue) onConfirmRegister;
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +22,7 @@ class QueueConfirmRegisterScreen extends StatelessWidget {
 
     if (screenWidth < 600) {
       // 모바일
-      horizontalPadding = 16;
+      horizontalPadding = 28;
     } else if (screenWidth < 1024) {
       // 태블릿
       horizontalPadding = 80;
@@ -30,7 +41,7 @@ class QueueConfirmRegisterScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'You\'re on the list!',
+              'Check You\'re Queue!',
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -39,7 +50,7 @@ class QueueConfirmRegisterScreen extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              'You\'re currently number 3 in line.',
+              'You\'re currently number $queueSize in line.',
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
                 color: Colors.black,
                 fontSize: 18,
@@ -64,7 +75,7 @@ class QueueConfirmRegisterScreen extends StatelessWidget {
                     fontSize: 18,
                   ),
                 ),
-                Text('Hanwool'),
+                Text(queueEntity.fullName),
               ],
             ),
             const SizedBox(height: 20),
@@ -78,7 +89,7 @@ class QueueConfirmRegisterScreen extends StatelessWidget {
                     fontSize: 18,
                   ),
                 ),
-                Text('010-2472-9511'),
+                Text(queueEntity.phoneNumber),
               ],
             ),
             const SizedBox(height: 20),
@@ -92,7 +103,7 @@ class QueueConfirmRegisterScreen extends StatelessWidget {
                     fontSize: 18,
                   ),
                 ),
-                Text('3'),
+                Text(queueEntity.partySize.toString()),
               ],
             ),
             const SizedBox(height: 40),
@@ -191,7 +202,14 @@ class QueueConfirmRegisterScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (_) => const QueueDashboardScreen(),
+                      ),
+                      (route) => false,
+                    );
+                  },
                   style: TextButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(7),
@@ -199,9 +217,18 @@ class QueueConfirmRegisterScreen extends StatelessWidget {
                   ),
                   child: Text('Cancel'),
                 ),
-                const SizedBox(width: 28),
+                const SizedBox(width: 16),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    onConfirmRegister(queueEntity);
+
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (_) => const QueueDashboardScreen(),
+                      ),
+                      (route) => false,
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(
                       context,

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:on_queue/models/queue_entity.dart';
+import 'package:on_queue/screen/queue_confirm_register_screen.dart';
 
 class QueueRegisterScreen extends StatefulWidget {
   const QueueRegisterScreen({
     super.key,
     required this.appBarTitle,
+    required this.queueSize,
     required this.onRegister,
   });
 
   final String appBarTitle;
+  final int queueSize;
   final Function(QueueEntity queue) onRegister;
 
   @override
@@ -141,18 +144,23 @@ class _QueueRegisterScreenState extends State<QueueRegisterScreen> {
                         // 등록 로직 추가 예정
                         // 연락처는 메시지 발송 때문에 Validation 확인 필수
 
-                        widget.onRegister(
-                          QueueEntity(
-                            id: "",
-                            lastName: lastName,
-                            sirName: sirName,
-                            phoneNumber: phone,
-                            partySize: partySize,
+                        // 화면 종료
+                        // Navigator.of(context).pop(true);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => QueueConfirmRegisterScreen(
+                              queueEntity: QueueEntity(
+                                id: "",
+                                lastName: lastName,
+                                sirName: sirName,
+                                phoneNumber: phone,
+                                partySize: partySize,
+                              ),
+                              queueSize: widget.queueSize,
+                              onConfirmRegister: widget.onRegister,
+                            ),
                           ),
                         );
-
-                        // 화면 종료
-                        Navigator.of(context).pop(true);
                       }
                     },
                     style: ElevatedButton.styleFrom(

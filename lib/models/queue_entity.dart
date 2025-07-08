@@ -33,4 +33,8 @@ class QueueEntity {
     if (name.length == 2) return '${name[0]}*';
     return '${name[0]}${'*' * (name.length - 1)}';
   }
+
+  String get fullName {
+    return '$sirName $lastName';
+  }
 }
