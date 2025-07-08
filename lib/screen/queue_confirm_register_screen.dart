@@ -5,10 +5,27 @@ class QueueConfirmRegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    double? horizontalPadding;
+
+    if (screenWidth < 600) {
+      // 모바일
+      horizontalPadding = 16;
+    } else if (screenWidth < 1024) {
+      // 태블릿
+      horizontalPadding = 80;
+    } else {
+      horizontalPadding = 120;
+    }
+
     return Scaffold(
       appBar: AppBar(title: Text('Confirm Queue'), centerTitle: true),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 26, horizontal: 16),
+        padding: EdgeInsets.symmetric(
+          vertical: 26,
+          horizontal: horizontalPadding,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -109,11 +126,24 @@ class QueueConfirmRegisterScreen extends StatelessWidget {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Text(
-                        'We\'ll send you a text message when your table is ready. Please respond within 5 minute',
-                        style: TextStyle(
-                          color: Color(0xFF459acc),
-                          fontWeight: FontWeight.w500,
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'We\'ll send you a text message when your table is ready.',
+                          style: TextStyle(
+                            color: Color(0xFF459acc),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Please respond within 5 minute',
+                          style: TextStyle(
+                            color: Color(0xFF459acc),
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ],
@@ -141,11 +171,14 @@ class QueueConfirmRegisterScreen extends StatelessWidget {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Text(
-                        'If you miss your confirmation. we\'ll try to reach you by phone.',
-                        style: TextStyle(
-                          color: Color(0xFF459acc),
-                          fontWeight: FontWeight.w500,
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'If you miss your confirmation. we\'ll try to reach you by phone.',
+                          style: TextStyle(
+                            color: Color(0xFF459acc),
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ],
@@ -166,7 +199,7 @@ class QueueConfirmRegisterScreen extends StatelessWidget {
                   ),
                   child: Text('Cancel'),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 28),
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
