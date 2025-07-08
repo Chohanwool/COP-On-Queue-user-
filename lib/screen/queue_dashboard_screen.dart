@@ -14,6 +14,16 @@ class QueueDashboardScreen extends StatefulWidget {
 class _QueueDashboardScreenState extends State<QueueDashboardScreen> {
   final List<QueueEntity> _queueList = queueEntities;
 
+  late final String formattedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    final today = DateTime.now();
+    formattedDate =
+        "${today.year}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}";
+  }
+
   // 등록 화면으로 이동
   void _pushRegisterScreen() {
     Navigator.of(context).push(
@@ -48,11 +58,6 @@ class _QueueDashboardScreenState extends State<QueueDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    // 👉 오늘 날짜 가져오기
-    final today = DateTime.now();
-    final formattedDate =
-        "${today.year}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}";
 
     return Scaffold(
       appBar: AppBar(
