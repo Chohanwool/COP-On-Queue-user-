@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:on_queue/screen/login_screen.dart';
 import 'package:on_queue/screen/queue_dashboard_screen.dart';
+import 'package:on_queue/utils/navigation_observer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorObservers: [StackObserver()],
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // color scheme
